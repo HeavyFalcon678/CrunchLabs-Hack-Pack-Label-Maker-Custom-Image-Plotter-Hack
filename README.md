@@ -1,7 +1,8 @@
 # LabelMakerCustomImage
-This is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It creates a custom Arduino code file that plots your custom image. It can use .png, .jpg, and .jpeg formats.
+This is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It creates a custom Arduino code file that plots your chosen image. It can use .png, .jpg, and .jpeg formats.
 
 **Instructions:**
+
   ‣ Install Python
   
   ‣ Install dependencies:
