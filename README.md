@@ -7,7 +7,7 @@
 
 Example 1                  |  Example 2
 :-------------------------:|:-------------------------:
-![](images/HeavyFalcon.webp)  |  ![](images/WKoA.webp)
+<img src="images/HeavyFalcon.webp" height=50%/>  |  <img src="images/WKoA.webp" height=50%/>
 
 ---
 
