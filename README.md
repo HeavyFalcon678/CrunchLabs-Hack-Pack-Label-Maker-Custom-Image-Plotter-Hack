@@ -1,14 +1,13 @@
 # LabelMakerCustomImage
 
-<!-- ![alt text](images/WKoA.webp)
-
-![alt text](images/HeavyFalcon.webp) -->
-
-<p align="center">
+<!-- <p align="center">
   <img src="images/HeavyFalcon.webp" height=200px />
   <img src="images/WKoA.webp" height=200px style="margin-left: 40px;" />
-</p>
+</p> -->
 
+Example 1                  |  Example 2
+:-------------------------:|:-------------------------:
+![](images/HeavyFalcon.webp)  |  ![](images/WKoA.webp)
 
 ---
 
