@@ -1,4 +1,17 @@
 # LabelMakerCustomImage
+
+<!-- ![alt text](images/WKoA.webp)
+
+![alt text](images/HeavyFalcon.webp) -->
+
+<p align="center">
+  <img src="images/HeavyFalcon.webp" height=200px />
+  <img src="images/WKoA.webp" height=200px style="margin-left: 40px;" />
+</p>
+
+
+---
+
 This is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It creates a custom Arduino code file that plots your chosen image. It can use .png, .jpg, and .jpeg formats.
 
 **Instructions:**
