@@ -6,6 +6,7 @@ This is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It creates a cus
   ‣ Install Python
   
   ‣ Install dependencies:
+    
     • numpy
     • PIL
     • matplotlib
