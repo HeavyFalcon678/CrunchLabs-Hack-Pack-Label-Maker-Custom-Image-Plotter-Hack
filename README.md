@@ -15,6 +15,7 @@ Example 100x100 (Drafting Pen)                  |  Example 25x25
 
 This project is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It processes a custom image to generate Arduino code that draws your chosen image on the HackPack Label Maker. Supported image formats include `.png`, `.jpg`, and `.jpeg`.
 
+
 ## Features
 
 - Converts an image into a binary bitmap.
@@ -55,6 +56,8 @@ Download the `main.py` file from this repository. Open a terminal in the directo
 ```bash
 python -m main --image_path path/to/your/image.jpg --draw_dark_pixels True --pixel_width 25 --step_width 1350
 ```
+
+Using a higher `pixel_width` value will result in a more detailed image, but it will also require more time to draw, and may require a drafting pen instead of a marker.  Setting this to 100 draws up to 100x100=10,000 points in a tiny grid! The `step_width` parameter determines the overall drawing width in stepper motor steps, where the default is good for the purple tape that the Label Maker ships with. The `draw_dark_pixels` parameter allows you to choose whether to draw dark or light pixels detected in the input image.
 
 ### Command-Line Options
 
