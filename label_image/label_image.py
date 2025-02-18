@@ -1,8 +1,10 @@
-from label_image.ino_code_template import code
-from sys import *
+from os.path import exists
+import sys
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+
+from ino_code_template import code
 
 
 def generate_bitmap(image_path, grid_size, place_on_dark):
@@ -79,3 +81,27 @@ def writeFile(grid_size, desired_width, byte_array_str):
     print(f"Arduino code file created. Filename: {filename}")
     print("Exiting...")
     exit()
+
+
+def process_image(image_path: str, draw_dark_pixels: bool = True, pixel_width: int = 25, step_width: int = 1350):
+    """Process the image to generate a binary bitmap, pack it into a byte array, and
+     output code for the Arduino Nano on the HackPack Label Maker. Also displays the generated bitmap."""
+    # Validate that the file exists and has an allowed extension.
+    allowed_ext = ('.png', '.jpg', '.jpeg')
+    if not exists(image_path) or not image_path.lower().endswith(allowed_ext):
+        print("ERROR: Image not found or invalid filename.")
+        sys.exit(1)
+
+    # Process the image: generate a binary grid and pack it into a byte array.
+    matrix = generate_bitmap(image_path, pixel_width, draw_dark_pixels)
+    plot_bitmap(matrix)
+    byte_array = pack_bitmap(matrix, pixel_width)
+
+    # Format the byte array as a C array string, e.g., {0x3F, 0xA7, ...}
+    byte_array_str = "{" + ", ".join("0x%02X" % b for b in byte_array) + "}"
+    check_make_file(pixel_width, step_width, byte_array_str)
+
+    # Wait until the plot window is closed.
+    plot_num = plt.gcf().number
+    while plt.fignum_exists(plot_num):
+        plt.pause(0.1)
