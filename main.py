@@ -22,7 +22,7 @@ if __name__ == "main":
   place_on_dark = int(place_on_dark)
 
   # Change this value for higher resolution (e.g. 40 instead of 25)
-  grid_size = 16 # For example, 40 for more dots in the same space
+  grid_size = 40 # For example, 40 for more dots in the same space
 
   # Define the fixed physical width (in steps) for the drawing.
   desired_width = 1350

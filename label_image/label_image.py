@@ -52,8 +52,8 @@ def pack_bitmap(matrix, grid_size):
 
 def plot_bitmap(matrix):
   # For preview: display the binary matrix as an image.
-  # rotate the image 90 degrees to match the physical orientation
   matrix = np.rot90(matrix)
+  matrix = ~matrix
   plt.figure(figsize=(6, 6))
   plt.imshow(matrix, cmap='gray', interpolation='nearest')
   plt.title("Image Preview (1 = dot, 0 = blank)")
