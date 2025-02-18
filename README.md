@@ -20,13 +20,13 @@ This is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It creates a cus
   ‣ Install dependencies:
     
     • numpy
-    • PIL
+    • pillow 
     • matplotlib
 
   ‣ Download main.py from this repository
   
   ‣ Open a terminal and run this command:
-    python *pathtofile*/main.py *pathtoimage/imagefile.extension* *plotondark*
+    `python -m *pathtofile*/main.py *pathtoimage/imagefile.extension* *plotondark*`
   
   *plotondark* is either 1 for plotting on dark, or 0 for plotting on light
 

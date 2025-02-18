@@ -1,4 +1,4 @@
-//This is the Custom Image hack for the Hack Pack LabelMaker
+code = """//This is the Custom Image hack for the Hack Pack LabelMaker
 
 //////////////////////////////////////////////////
                 //  LIBRARIES  //
@@ -22,8 +22,8 @@ ezButton button1(14); //joystick button handler
 
 // Set the grid resolution and desired drawing width (in steps)
 // (Change GRID_SIZE here in the Python-generated code to 25, 40, etc.)
-#define GRID_SIZE 16
-#define DESIRED_WIDTH 1350
+#define GRID_SIZE %s
+#define DESIRED_WIDTH %s
 // Compute the scale factor so that (GRID_SIZE * customImagescale) equals DESIRED_WIDTH
 int customImagescale = DESIRED_WIDTH / GRID_SIZE;
 
@@ -85,7 +85,7 @@ int joystickY;
 
 // The image is stored as a bit-packed array. Each bit represents a dot (1 = draw, 0 = skip).
 // The bits are stored in serpentine order: even rows left-to-right, odd rows right-to-left.
-const uint8_t customImage[BITMAP_SIZE] = {0x00, 0x02, 0xC0, 0x39, 0xFC, 0x03, 0xC0, 0x1F, 0xF0, 0x03, 0x80, 0x07, 0xE0, 0x00, 0x00, 0x0D, 0xB0, 0x01, 0xF8, 0x1C, 0xBC, 0x0F, 0x80, 0x1F, 0xF0, 0x00, 0xE0, 0x07, 0xE0, 0x0F, 0x30, 0x00};
+const uint8_t customImage[BITMAP_SIZE] = %s;
 
 //////////////////////////////////////////////////
                 //  S E T U P  //
@@ -254,11 +254,11 @@ void plotcustomImage(){
   Serial.println("CUSTOM IMG TIME");
   // Iterate over each row of the grid
   for (int row = 0; row < GRID_SIZE; row++){
-    if (row % 2 == 0) { // even row: left-to-right
+    if (row %% 2 == 0) { // even row: left-to-right
       for (int col = 0; col < GRID_SIZE; col++){
         int index = row * GRID_SIZE + col;
         int byteIndex = index / 8;
-        int bitIndex = index % 8;
+        int bitIndex = index %% 8;
         uint8_t byteVal = customImage[byteIndex];
         if ((byteVal >> bitIndex) & 1) {
           int x_end = row * customImagescale;
@@ -279,7 +279,7 @@ void plotcustomImage(){
       for (int col = GRID_SIZE - 1; col >= 0; col--){ // columns backwards saves some movement
         int index = (row+1) * GRID_SIZE - col - 1; // serpentine order, look at the bits backwards too
         int byteIndex = index / 8;
-        int bitIndex = index % 8
+        int bitIndex = index %% 8;
         uint8_t byteVal = customImage[byteIndex];
         if ((byteVal >> bitIndex) & 1) {
           int x_end = row * customImagescale;
@@ -300,3 +300,4 @@ void plotcustomImage(){
   }
   releaseMotors();
 }
+"""
