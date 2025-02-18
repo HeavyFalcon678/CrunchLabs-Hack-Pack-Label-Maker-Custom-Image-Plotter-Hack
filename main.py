@@ -5,7 +5,6 @@ from label_image.label_image import process_image
 # TODO: Add a threshold to the image processing function to determine if a pixel is dark or light, relative to the average brightness of the image.
 # TODO: Add a function to get an ai-generated image.
 # TODO: Add ascii representation of the image to the output file.
-# TODO: Use the input file name to generate the output file name.
 
 
 def main():

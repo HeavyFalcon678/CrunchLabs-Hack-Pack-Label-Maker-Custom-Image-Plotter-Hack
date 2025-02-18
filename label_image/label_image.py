@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from ino_code_template import code
+from .ino_code_template import code
 
 
 def generate_bitmap(image_path, grid_size, place_on_dark):
@@ -63,18 +63,19 @@ def plot_bitmap(matrix):
     plt.show(block=False)
 
 
-def check_make_file(grid_size, desired_width, byte_array_str):
+def check_make_file(image_file_name, grid_size, desired_width, byte_array_str):
     makeFile = input("Do you want to create code for this image? (Y/n) > ")
     if makeFile.lower() in ["y", "1", "true"]:
         print("Writing file...")
-        writeFile(grid_size, desired_width, byte_array_str)
+        writeFile(image_file_name, grid_size, desired_width, byte_array_str)
     else:
         print("No file created. Exiting...")
         exit()
 
 
-def writeFile(grid_size, desired_width, byte_array_str):
-    filename = "LabelMakerCustomImage_%d_%d.ino" % (grid_size, desired_width)
+def writeFile(image_file_name, grid_size, desired_width, byte_array_str):
+    # filename = "LabelMakerCustomImage_%d_%d.ino" % (grid_size, desired_width)
+    filename = f'LabelMakerCustomImage_{image_file_name}_{grid_size}_{desired_width}.ino'
     with open(filename, 'w') as file:
         generatedCode = code % (grid_size, desired_width, byte_array_str)
         file.write(generatedCode)
@@ -99,7 +100,8 @@ def process_image(image_path: str, draw_dark_pixels: bool = True, pixel_width: i
 
     # Format the byte array as a C array string, e.g., {0x3F, 0xA7, ...}
     byte_array_str = "{" + ", ".join("0x%02X" % b for b in byte_array) + "}"
-    check_make_file(pixel_width, step_width, byte_array_str)
+    image_file_name = image_path.split("/")[-1].split(".")[0]
+    check_make_file(image_file_name, pixel_width, step_width, byte_array_str)
 
     # Wait until the plot window is closed.
     plot_num = plt.gcf().number
