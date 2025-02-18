@@ -1,8 +1,5 @@
 import argparse
-from os.path import exists
-from label_image.label_image import generate_bitmap, pack_bitmap, plot_bitmap, check_make_file, process_image
-import matplotlib.pyplot as plt
-import sys
+from label_image.label_image import process_image
 
 
 # TODO: Add a threshold to the image processing function to determine if a pixel is dark or light, relative to the average brightness of the image.
