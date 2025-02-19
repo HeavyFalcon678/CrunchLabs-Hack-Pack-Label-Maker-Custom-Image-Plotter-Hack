@@ -9,7 +9,7 @@ Example 100x100 (Drafting Pen)                  |  Example 25x25
 
 ---
 
-This project is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It processes a custom image to generate Arduino code that draws your chosen image on the HackPack Label Maker. Supported image formats include `.png`, `.jpg`, and `.jpeg`.
+This project is a hack of the CrunchLabs Hack Pack Box #3: Label Maker. It processes a custom image to generate Arduino code that draws your chosen image on the HackPack Label Maker. Supported image formats include `.png`, `.jpg`, `.jpeg`, and `.webp`.
 
 
 ## Features
@@ -73,8 +73,8 @@ python -m main --image_path path/to/your/image.jpg --draw_dark_pixels True --num
   **Default:** `1350`
 
   - `--threshold_factor`
-    **Description:** The threshold factor used to determine if a pixel is dark or light relative to the image's average brightness.  The default value of 1.0 means that a pixel is considered dark if its brightness is above or below the average brightness of the image (depending on the value of --draw_dark_pixels).
-    **Default:** `1.0`
+  **Description:** The threshold factor used to determine if a pixel is dark or light relative to the image's average brightness.  The default value of 1.0 means that a pixel is considered dark if its brightness is above or below the average brightness of the image (depending on the value of --draw_dark_pixels).
+  **Default:** `1.0`
 
 After running the command, the program will process the image, display a plot of the generated bitmap, and output a code file (formatted as a C array) in your current directory. Follow the on-screen instructions, and then upload the generated code to your Arduino Nano using the Arduino IDE or CrunchLabs.
 
