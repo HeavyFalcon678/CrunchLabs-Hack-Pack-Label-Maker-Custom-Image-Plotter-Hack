@@ -1,7 +1,14 @@
 code = """//This is the Custom Image hack for the Hack Pack LabelMaker
 
 //////////////////////////////////////////////////
-                //  LIBRARIES  //
+//           ASCII Art Preview                  //
+//////////////////////////////////////////////////
+/*
+%s
+*/
+
+//////////////////////////////////////////////////
+//               LIBRARIES                    //
 //////////////////////////////////////////////////
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -10,12 +17,12 @@ code = """//This is the Custom Image hack for the Hack Pack LabelMaker
 #include <Servo.h>
 
 //////////////////////////////////////////////////
-          //  PINS AND PARAMETERS  //
+//          PINS AND PARAMETERS               //
 //////////////////////////////////////////////////
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);  // Set the LCD address to 0x27 for a 16x2 display
 
-ezButton button1(14); //joystick button handler
+ezButton button1(14); // joystick button handler
 #define INIT_MSG "Initializing..."
 #define MODE_NAME "PLOT CUSTOM IMG "
 #define PLOTTING "   PLOTTING...  "
@@ -31,11 +38,11 @@ int customImagescale = DESIRED_WIDTH / GRID_SIZE;
 #define BITMAP_SIZE ((GRID_SIZE * GRID_SIZE + 7) / 8)
 
 //////////////////////////////////////////////////
-  //  JOYSTICK, MOTOR, SERVO, ETC. SETUP
+//   JOYSTICK, MOTOR, SERVO, ETC. SETUP         //
 //////////////////////////////////////////////////
 
-const int joystickXPin = A2;  
-const int joystickYPin = A1;  
+const int joystickXPin = A2;
+const int joystickYPin = A1;
 const int joystickButtonThreshold = 200;
 
 int currentCharacter = 0;
@@ -80,7 +87,7 @@ int joystickX;
 int joystickY;
 
 //////////////////////////////////////////////////
-          //  BITMAP IMAGE DATA  //
+//          BITMAP IMAGE DATA                 //
 //////////////////////////////////////////////////
 
 // The image is stored as a bit-packed array. Each bit represents a dot (1 = draw, 0 = skip).
@@ -88,7 +95,7 @@ int joystickY;
 const uint8_t customImage[BITMAP_SIZE] = %s;
 
 //////////////////////////////////////////////////
-                //  S E T U P  //
+//                SETUP                       //
 //////////////////////////////////////////////////
 void setup() {
   lcd.init();
@@ -117,9 +124,9 @@ void setup() {
   lcd.clear();
 }
 
-////////////////////////////////////////////////
-                //  L O O P  //
-////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//                LOOP                        //
+//////////////////////////////////////////////////
 void loop() {
 
   button1.loop();
@@ -277,7 +284,7 @@ void plotcustomImage(){
       }
     } else { // odd row: right-to-left
       for (int col = GRID_SIZE - 1; col >= 0; col--){ // columns backwards saves some movement
-        int index = (row+1) * GRID_SIZE - col - 1; // serpentine order, look at the bits backwards too
+        int index = (row+1) * GRID_SIZE - col - 1; // serpentine order
         int byteIndex = index / 8;
         int bitIndex = index %% 8;
         uint8_t byteVal = customImage[byteIndex];

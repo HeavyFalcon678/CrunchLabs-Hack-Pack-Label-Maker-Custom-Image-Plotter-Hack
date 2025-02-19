@@ -56,37 +56,52 @@ def pack_bitmap(matrix, grid_size):
 def plot_bitmap(matrix):
     # For preview: display the binary matrix as an image.
     matrix = np.rot90(matrix)
-    matrix = ~matrix
+    matrix = ~np.array(matrix)
     plt.figure(figsize=(6, 6))
     plt.imshow(matrix, cmap='gray', interpolation='nearest')
     plt.title("Image Preview (1 = dot, 0 = blank)")
     plt.show(block=False)
 
 
-def check_make_file(image_file_name, grid_size, desired_width, byte_array_str):
+def generate_ascii_art(matrix):
+    """
+    Generate an ASCII art representation of the binary matrix.
+    Uses '#' for a pixel set to 1 and space for a pixel set to 0.
+    """
+    matrix = np.rot90(matrix)
+    # matrix = ~np.array(matrix)
+    ascii_lines = []
+    for row in matrix:
+        # Need a solid square for the ASCII art to look good.
+        line = ''.join('█' if pixel == 1 else ' ' for pixel in row)
+        ascii_lines.append(line)
+    return "\n".join(ascii_lines)
+
+
+def check_make_file(image_file_name, grid_size, desired_width, byte_array_str, ascii_art):
     makeFile = input("Do you want to create code for this image? (Y/n) > ")
     if makeFile.lower() in ["y", "1", "true"]:
         print("Writing file...")
-        writeFile(image_file_name, grid_size, desired_width, byte_array_str)
+        writeFile(image_file_name, grid_size, desired_width, byte_array_str, ascii_art)
     else:
         print("No file created. Exiting...")
         exit()
 
 
-def writeFile(image_file_name, grid_size, desired_width, byte_array_str):
-    # filename = "LabelMakerCustomImage_%d_%d.ino" % (grid_size, desired_width)
+def writeFile(image_file_name, grid_size, desired_width, byte_array_str, ascii_art):
     filename = f'LabelMakerCustomImage_{image_file_name}_{grid_size}_{desired_width}.ino'
     with open(filename, 'w') as file:
-        generatedCode = code % (grid_size, desired_width, byte_array_str)
-        file.write(generatedCode)
+        generated_code = code % (ascii_art, grid_size, desired_width, byte_array_str)
+        file.write(generated_code)
     print(f"Arduino code file created. Filename: {filename}")
     print("Exiting...")
     exit()
 
 
-def process_image(image_path: str, draw_dark_pixels: bool = True, pixel_width: int = 25, step_width: int = 1350):
+def process_image(image_path: str, draw_dark_pixels: bool = True, num_points_width: int = 25, num_steps_width: int = 1350):
     """Process the image to generate a binary bitmap, pack it into a byte array, and
-     output code for the Arduino Nano on the HackPack Label Maker. Also displays the generated bitmap."""
+    output code for the Arduino Nano on the HackPack Label Maker.
+    Also displays the generated bitmap and includes an ASCII art representation in the output."""
     # Validate that the file exists and has an allowed extension.
     allowed_ext = ('.png', '.jpg', '.jpeg')
     if not exists(image_path) or not image_path.lower().endswith(allowed_ext):
@@ -94,16 +109,20 @@ def process_image(image_path: str, draw_dark_pixels: bool = True, pixel_width: i
         sys.exit(1)
 
     # Process the image: generate a binary grid and pack it into a byte array.
-    matrix = generate_bitmap(image_path, pixel_width, draw_dark_pixels)
+    matrix = generate_bitmap(image_path, num_points_width, draw_dark_pixels)
     plot_bitmap(matrix)
-    byte_array = pack_bitmap(matrix, pixel_width)
+    byte_array = pack_bitmap(matrix, num_points_width)
+
+    # Generate ASCII art representation of the image.
+    ascii_art = generate_ascii_art(matrix)
 
     # Format the byte array as a C array string, e.g., {0x3F, 0xA7, ...}
     byte_array_str = "{" + ", ".join("0x%02X" % b for b in byte_array) + "}"
     image_file_name = image_path.split("/")[-1].split(".")[0]
-    check_make_file(image_file_name, pixel_width, step_width, byte_array_str)
+    check_make_file(image_file_name, num_points_width, num_steps_width, byte_array_str, ascii_art)
 
     # Wait until the plot window is closed.
     plot_num = plt.gcf().number
     while plt.fignum_exists(plot_num):
         plt.pause(0.1)
+

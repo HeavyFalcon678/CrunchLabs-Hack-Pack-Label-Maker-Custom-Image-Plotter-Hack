@@ -54,10 +54,9 @@ pip install -r requirements.txt
 Download the `main.py` file from this repository. Open a terminal in the directory containing `main.py` and run the command below. All parameters are optional; if not provided, default values will be used.
 
 ```bash
-python -m main --image_path path/to/your/image.jpg --draw_dark_pixels True --pixel_width 25 --step_width 1350
+python -m main --image_path path/to/your/image.jpg --draw_dark_pixels True --num_points_width 25 --num_steps_width 1350
 ```
 
-Using a higher `pixel_width` value will result in a more detailed image, but it will also require more time to draw, and may require a drafting pen instead of a marker.  Setting this to 100 draws up to 100x100=10,000 points in a tiny grid! The `step_width` parameter determines the overall drawing width in stepper motor steps, where the default is good for the purple tape that the Label Maker ships with. The `draw_dark_pixels` parameter allows you to choose whether to draw dark or light pixels detected in the input image.
 
 ### Command-Line Options
 
@@ -69,15 +68,18 @@ Using a higher `pixel_width` value will result in a more detailed image, but it 
   **Description:** Set to `True` to draw points for dark pixels, or `False` to draw points for light pixels.  
   **Default:** `True`
 
-- `--pixel_width`  
-  **Description:** The grid size used for processing. The image is processed into a grid of `pixel_width x pixel_width` points.  
+- `--num_points_width`  
+  **Description:** The grid size used for processing. The image is processed into a grid of `num_points_width x num_points width` points.  
   **Default:** `25`
 
-- `--step_width`  
+- `--num_steps_width`  
   **Description:** The overall drawing width in stepper motor steps.  
   **Default:** `1350`
 
 After running the command, the program will process the image, display a plot of the generated bitmap, and output a code file (formatted as a C array) in your current directory. Follow the on-screen instructions, and then upload the generated code to your Arduino Nano using the Arduino IDE or CrunchLabs.
+
+
+Using a higher `num_points_width` value will result in a more detailed image, but it will also require more time to draw, and may require a drafting pen instead of a marker.  Setting this to 100 draws up to 100x100=10,000 points in a tiny grid! The `num_steps_width` parameter determines the overall drawing width in stepper motor steps, where the default is good for the purple tape that the Label Maker ships with. The `draw_dark_pixels` parameter allows you to choose whether to draw dark or light pixels detected in the input image.
 
 ## Future Enhancements
 
