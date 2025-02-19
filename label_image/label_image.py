@@ -89,7 +89,7 @@ def check_make_file(image_file_name, grid_size, desired_width, byte_array_str, a
 
 def writeFile(image_file_name, grid_size, desired_width, byte_array_str, ascii_art):
     filename = f'LabelMakerCustomImage_{image_file_name}_{grid_size}_{desired_width}.ino'
-    with open(filename, 'w') as file:
+    with open(filename, 'w', encoding="utf-8") as file:
         generated_code = code % (ascii_art, grid_size, desired_width, byte_array_str)
         file.write(generated_code)
     print(f"Arduino code file created. Filename: {filename}")
