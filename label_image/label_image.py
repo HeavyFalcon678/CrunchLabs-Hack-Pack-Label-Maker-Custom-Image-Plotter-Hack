@@ -102,7 +102,7 @@ def process_image(image_path: str, draw_dark_pixels: bool = True, num_points_wid
     output code for the Arduino Nano on the HackPack Label Maker.
     Also displays the generated bitmap and includes an ASCII art representation in the output."""
     # Validate that the file exists and has an allowed extension.
-    allowed_ext = ('.png', '.jpg', '.jpeg')
+    allowed_ext = ('.png', '.jpg', '.jpeg', '.webp')
     if not exists(image_path) or not image_path.lower().endswith(allowed_ext):
         print("ERROR: Image not found or invalid filename.")
         sys.exit(1)
