@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from .ino_code_template import code
 
 
-def generate_bitmap(image_path, grid_size, place_on_dark):
+def generate_bitmap(image_path, grid_size, place_on_dark, threshold_factor):
     # Open image, convert to grayscale, resize, and rotate as needed.
     image = Image.open(image_path)
     image = image.convert('L')
@@ -20,8 +20,8 @@ def generate_bitmap(image_path, grid_size, place_on_dark):
     matrix = [[0 for _ in range(grid_size)] for _ in range(grid_size)]
     for i in range(grid_size):
         for j in range(grid_size):
-            if (place_on_dark and pixels[i, j] < average_brightness) or (
-                    not place_on_dark and pixels[i, j] > average_brightness):
+            if (place_on_dark and pixels[i, j] < average_brightness * threshold_factor) or (
+                    not place_on_dark and pixels[i, j] > average_brightness * threshold_factor):
                 matrix[i][j] = 1
             else:
                 matrix[i][j] = 0
@@ -69,7 +69,6 @@ def generate_ascii_art(matrix):
     Uses '#' for a pixel set to 1 and space for a pixel set to 0.
     """
     matrix = np.rot90(matrix)
-    # matrix = ~np.array(matrix)
     ascii_lines = []
     for row in matrix:
         # Need a solid square for the ASCII art to look good.
@@ -98,7 +97,7 @@ def writeFile(image_file_name, grid_size, desired_width, byte_array_str, ascii_a
     exit()
 
 
-def process_image(image_path: str, draw_dark_pixels: bool = True, num_points_width: int = 25, num_steps_width: int = 1350):
+def process_image(image_path: str, draw_dark_pixels: bool = True, num_points_width: int = 25, num_steps_width: int = 1350, threshold_factor: int = 1.0):
     """Process the image to generate a binary bitmap, pack it into a byte array, and
     output code for the Arduino Nano on the HackPack Label Maker.
     Also displays the generated bitmap and includes an ASCII art representation in the output."""
@@ -108,8 +107,14 @@ def process_image(image_path: str, draw_dark_pixels: bool = True, num_points_wid
         print("ERROR: Image not found or invalid filename.")
         sys.exit(1)
 
+    if not threshold_factor or threshold_factor < 0.0:
+        print("ERROR: Threshold factor must be greater than or equal to 0.")
+        sys.exit(1)
+
+    threshold_factor = float(threshold_factor)
+
     # Process the image: generate a binary grid and pack it into a byte array.
-    matrix = generate_bitmap(image_path, num_points_width, draw_dark_pixels)
+    matrix = generate_bitmap(image_path, num_points_width, draw_dark_pixels, threshold_factor)
     plot_bitmap(matrix)
     byte_array = pack_bitmap(matrix, num_points_width)
 

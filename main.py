@@ -1,8 +1,6 @@
 import argparse
 from label_image.label_image import process_image
 
-
-# TODO: Add a threshold to the image processing function to determine if a pixel is dark or light, relative to the average brightness of the image.
 # TODO: Add a function to get an ai-generated image.
 
 def main():
@@ -18,6 +16,7 @@ def main():
                         help="Points are drawn in a grid with dimensions num_points_width x num_points_width (default: 25)")
     parser.add_argument("--num_steps_width", type=int, default=1350,
                         help="Overall width of drawing in stepper motor steps (default: 1350)")
+    parser.add_argument("--threshold_factor", type=float, default=1.0, help="Adjust the threshold for dark/light pixels by deviating slightly from the default 1.0.  Try 1.3, for example.")
 
     args = parser.parse_args()
 
@@ -25,7 +24,8 @@ def main():
         image_path=args.image_path,
         draw_dark_pixels=args.draw_dark_pixels,
         num_points_width=args.num_points_width,
-        num_steps_width=args.num_steps_width
+        num_steps_width=args.num_steps_width,
+        threshold_factor=args.threshold_factor
     )
 
 

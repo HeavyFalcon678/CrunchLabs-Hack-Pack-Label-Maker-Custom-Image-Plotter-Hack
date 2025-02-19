@@ -76,6 +76,10 @@ python -m main --image_path path/to/your/image.jpg --draw_dark_pixels True --num
   **Description:** The overall drawing width in stepper motor steps.  
   **Default:** `1350`
 
+  - `--threshold_factor`
+    **Description:** The threshold factor used to determine if a pixel is dark or light relative to the image's average brightness.  The default value of 1.0 means that a pixel is considered dark if its brightness is above or below the average brightness of the image (depending on the value of --draw_dark_pixels).
+    **Default:** `1.0`
+
 After running the command, the program will process the image, display a plot of the generated bitmap, and output a code file (formatted as a C array) in your current directory. Follow the on-screen instructions, and then upload the generated code to your Arduino Nano using the Arduino IDE or CrunchLabs.
 
 
@@ -83,7 +87,6 @@ Using a higher `num_points_width` value will result in a more detailed image, bu
 
 ## Future Enhancements
 
-- **Thresholding:** Add a threshold parameter to determine if a pixel is dark or light relative to the image's average brightness.
 - **AI Image Generation:** Include a function to generate images using AI.
 
 Enjoy customizing your Label Maker with your own images!
