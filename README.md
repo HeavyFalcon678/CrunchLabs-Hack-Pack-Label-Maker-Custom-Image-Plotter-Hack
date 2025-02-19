@@ -1,11 +1,7 @@
 # LabelMakerCustomImage
 
-<!--
-<p align="center">
-  <img src="images/HeavyFalcon.webp" height="200px" />
-  <img src="images/WKoA.webp" height="200px" style="margin-left: 40px;" />
-</p>
--->
+![Labelling Bear](images/labelling_bear.jpg)
+
 
 Example 100x100 (Drafting Pen)                  |  Example 25x25
 :-------------------------:|:-------------------------:
